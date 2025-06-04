@@ -1,0 +1,61 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: [
+    "github>typedef-ai/renovate:managers.json5",
+    "github>typedef-ai/renovate:package-rules-groupings.json5",
+
+    // https://github.com/aquaproj/aqua-renovate-config/blob/main/default.json
+    "github>aquaproj/aqua-renovate-config#2.7.5",
+    "github>aquaproj/aqua-renovate-config:aqua-renovate-config#2.7.5(default\\.json5)",
+
+    "config:best-practices", // https://docs.renovatebot.com/presets-config/#configbest-practices
+    // includes:
+    // 'config:recommended',
+    // 'docker:pinDigests',
+    // 'helpers:pinGitHubActionDigests',
+    // ':pinDevDependencies'
+
+    ":dependencyDashboard", // https://docs.renovatebot.com/configuration-options/#dependencydashboard
+    ":preserveSemverRanges", // https://docs.renovatebot.com/presets-default/#preservesemverranges
+    "replacements:all", // https://docs.renovatebot.com/presets-replacements/#replacementsall
+    "workarounds:all", // https://docs.renovatebot.com/presets-workarounds/#workaroundsall
+    ":semanticCommitTypeAll(chore)", // https://docs.renovatebot.com/presets-default/#semanticcommittypeallarg0
+    "mergeConfidence:all-badges", // https://docs.renovatebot.com/presets-mergeConfidence/#mergeconfidenceall-badges
+    "helpers:pinGitHubActionDigests", // https://docs.renovatebot.com/presets-helpers/#helperspingithubactiondigests
+    ":enableVulnerabilityAlerts", // https://docs.renovatebot.com/presets-default/#enablevulnerabilityalerts
+    "group:linters", // https://docs.renovatebot.com/presets-group/#grouplinters
+    ":combinePatchMinorReleases", // https://docs.renovatebot.com/presets-default/#combinepatchminorreleases
+  ],
+  configMigration: true,
+  automergeStrategy: "squash",
+  labels: ["dependencies"],
+  dependencyDashboardLabels: ["dependencies"],
+  platformAutomerge: true,
+  pruneStaleBranches: true,
+  rebaseWhen: "conflicted",
+  schedule: "* 14 4 * *",
+  timezone: "America/Los_Angeles",
+  semanticCommitScope: "deps",
+  semanticCommitType: "chore",
+  semanticCommits: "enabled",
+  osvVulnerabilityAlerts: true,
+  postUpdateOptions: [
+    "gomodTidy",
+    "gomodUpdateImportPaths",
+    "helmUpdateSubChartArchives",
+  ],
+  ignorePaths: ["**/.dagger/**", "**/dagger/**"],
+  gomod: { enabled: true, commitMessageTopic: "⬆ golang mod {{depName}}" },
+  vulnerabilityAlerts: { enabled: true, labels: ["security"] },
+  terraform: {
+    commitMessageTopic: "⬆ terraform {{depName}}",
+    enabled: true,
+  },
+  packageRules: [
+    {
+      matchCategories: ["docker"],
+      enabled: true,
+      commitMessageTopic: "⬆ docker 🐳 {{depName}}",
+    },
+  ],
+}
