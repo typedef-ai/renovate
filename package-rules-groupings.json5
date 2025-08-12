@@ -26,12 +26,6 @@
       automerge: true,
     },
     {
-      matchManagers: ["dockerfile", "docker-compose"],
-      groupName: "docker",
-      commitMessageTopic: "⬆ docker",
-      automerge: true,
-    },
-    {
       groupName: "⬆ dagger",
       commitMessageTopic: "⬆ dagger",
       automerge: true,
@@ -46,7 +40,7 @@
     },
     {
       matchPackageNames: ["kubernetes/kubectl", "kubernetes/kubernetes"],
-      allowedVersions: "<=1.30",
+      allowedVersions: "<=1.33",
     },
     {
       matchPackageNames: [
@@ -54,7 +48,7 @@
         "k8s.io/apimachinery",
         "k8s.io/client-go",
       ],
-      allowedVersions: "<=0.30",
+      allowedVersions: "<=0.33",
     },
     {
       matchPackageNames: [
@@ -97,18 +91,6 @@
       automerge: true,
     },
     {
-      matchManagers: [
-        "terraform",
-        "terraform-version",
-        "terragrunt",
-        "terragrunt-version",
-        "tflint-plugin",
-      ],
-      groupName: "terraform",
-      commitMessageTopic: "⬆ terraform",
-      automerge: true,
-    },
-    {
       matchManagers: ["github-actions"],
       groupName: "github-actions",
       commitMessageTopic: "⬆ github-actions",
@@ -119,14 +101,6 @@
         Change: "[`{{{displayFrom}}}` -> `{{{displayTo}}}`](https://github.com/{{{depName}}}/compare/{{{displayFrom}}}...{{{displayTo}}})",
       },
       prBodyColumns: ["Package", "Change", "Type", "Update"],
-    },
-    {
-      matchFileNames: ["magefiles"],
-      groupName: "mage-tooling",
-      commitMessageTopic: "⬆ 🤖 mage tooling",
-      automerge: true,
-      matchUpdateTypes: ["minor", "patch"],
-      prPriority: -1,
     },
     {
       groupName: "⬆ go-x",
